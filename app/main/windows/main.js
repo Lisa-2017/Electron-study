@@ -17,6 +17,15 @@ function create () {
 	// 设置窗口悬浮的初始位置
   const { left, top } = { left: screen.getPrimaryDisplay().workAreaSize.width - 400, top: screen.getPrimaryDisplay().workAreaSize.height - 250 }
   win.setPosition(left, top)
+	// //关闭默认鼠标右键菜单（ 由于配置可拖拽属性-webkit-app-region: drag引起的）
+	// win.hookWindowMessage(278,function(e){
+	// 	win.setEnabled(false);
+	// 	setTimeout(()=>{
+	// 		win.setEnabled(true);
+	// 	},100);
+	// 	return true;
+	// })
+
 
 	win.on('close', (e) => {
 			if(willQuitApp) {
