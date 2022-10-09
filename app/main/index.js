@@ -14,23 +14,41 @@
 
 const {app, BrowserWindow} = require('electron')
 const isDev = require('electron-is-dev')
-const path = require('path')
-let win
+// const path = require('path')
+const {create: createMainWindow, show: showMainWindow, close: closeMainWindow} = require('./windows/main')
+// let win
+// app.on('ready',()=>{
+//   win = new BrowserWindow({
+//     width:600,
+//     height:300,
+//     webPreferences:{
+//       nodeIntegration:true,
+//       contextIsolation: false,
+//     }
+//   })
+
+//   if(isDev){
+//     win.loadURL('http://localhost:3000')
+//   }else{
+//     //加载配置好的页面，约定再pages下
+//     win.loadFile(path.resolve(__dirname,'../renderer/pages/main/index.html')) // 找到生产环境的path
+//   }
+
+//   require('./trayAndMenu')
+
+// })
+
+let tray
+app.on('second-instance', () => {
+  showMainWindow()
+})
 app.on('ready',()=>{
-  win = new BrowserWindow({
-    width:600,
-    height:300,
-    webPreferences:{
-      nodeIntegration:true,
-      contextIsolation: false,
-    }
-  })
-
-  if(isDev){
-    win.loadURL('http://localhost:3000')
-  }else{
-    //加载配置好的页面，约定再pages下
-    win.loadFile(path.resolve(__dirname,'../renderer/pages/main/index.html')) // 找到生产环境的path
-  }
-
+  createMainWindow()
+  require('./trayAndMenu')
+})
+app.on('before-quit', () => {
+  closeMainWindow()
+})
+app.on('activate', () => {
+  showMainWindow()
 })
