@@ -1,5 +1,6 @@
 const {BrowserWindow, screen} = require('electron')
 const isDev = require('electron-is-dev')
+const path = require('path')
 
 
 let win
