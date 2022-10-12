@@ -39,6 +39,7 @@ function create () {
 
 	if (isDev) {
 			win.loadURL('http://localhost:3000')
+			win.webContents.openDevTools()
 	} else {
 			//加载配置好的页面，约定再pages下
 			win.loadFile(path.resolve(__dirname,'../../renderer/pages/main/index.html')) // 找到生产环境的path
